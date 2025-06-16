@@ -226,7 +226,7 @@ func (gen *CodeGenerator) GoComplexType(v *ComplexType) {
 			if fieldType == "time.Time" {
 				gen.ImportTime = true
 			}
-			if element.Optional {
+			if element.Optional && !strings.HasPrefix(fieldType, `*`) {
 				fieldType = "*" + fieldType
 			}
 			content += fmt.Sprintf("\t%s\t%s%s\t`xml:\"%s%s\"`\n", genGoFieldName(element.Name, false), plural, fieldType, element.Name, optional)
